@@ -40,7 +40,7 @@
 * GoodsApplications：此数据集合存储所有抗疫活动参与登记者的信息。
 * NewMessage：此数据集合为后台控制数据，包括新通知更新，抗疫活动开启，个人数据收集功能开关。<br><br>
 
-其中，NewMessage数据集合需提前预建3个条目及相应字段：<br><br>
+2) 其中，NewMessage数据集合需提前预建3个条目及相应字段：<br><br>
 
 * **"newMessage"**: 新消息控制，包括如下字段：<br>
   *_id*: "newMessage", //条目ID <br>
@@ -58,7 +58,7 @@
   *_id*: "isUsable", //条目ID <br>
   *usable*: true, //布尔型，是否使数据上传功能<br><br>
 
-除了上述数据库设置外，在小程序项目内，还需上传cloudfunctions中的两个云函数：'getOpenid'和'cleanHelpMessage'。在其目录上右键，选择'上传并部署，云端安装依赖'。<br>
+3) 除了上述数据库设置外，在小程序项目内，还需上传cloudfunctions中的两个云函数：'getOpenid'和'cleanHelpMessage'。在其目录上右键，选择'上传并部署，云端安装依赖'。<br>
 
 ## 祝愿
 
