@@ -1,0 +1,81 @@
+<!--miniprogram/pages/emergency/emergency.wxml-->
+<view class="emergency-content">
+  <image class="emergency-background" src="../../images/login-background.jpg" mode="aspectFill"></image>
+  <view class="emergency-header">
+    <view class='UserHeader'>
+      <open-data class='UserInfo' type="userAvatarUrl"  bindgetuserinfo="onGotUserInfo"></open-data>
+    </view>
+    <text>亲爱的</text>
+    <open-data class="UserName" type="userNickName"></open-data>
+  </view>
+  <view class="emergency-control">
+    <text>请问您需要：</text>
+    <button class="contact" open-type="contact" hover-class="contact_hover">在线求助</button>
+    <button class="message" bindtap="msgClick" hover-class="message_hover">留言求助</button>
+    <view class="tips">
+      <text>小提示</text>
+      <text>如果志愿者未及时回复</text>
+      <text>请留言告知您所面临的的困难</text>
+      <text>我们会尽快与您联系</text>
+    </view>
+    <button class="feed" open-type="feedback" hover-class="feed_hover" >问题反馈</button>
+  </view>
+</view>
+
+<view class="message-dialog {{ showMessageDialog ? 'message-dialog--show' : '' }}">
+  <view class="message-dialog__mask" bindtap="toggleHelpDialog" />
+  <view class="message-dialog__container">
+    <view class="{{showInfoText<3 ? 'message-text' : 'message-text-hide'}}" style='padding:65rpx;'>
+      <text>{{infoTitle[showInfoText]}}</text>
+      <text style="overflow-y:auto;overflow-x:scroll;">{{securityText[showInfoText]}}</text>
+      <button class="dialog-btn" style='width:250rpx;' bindtap="closeMsg">下一步</button>
+    </view>
+    <view class="{{showInfoText==3 ? 'help-text' : 'help-text-hide'}}" style='padding:65rpx;'>
+      <text class="title">留言求助</text>
+      <label>
+        <text>标题:</text>
+        <input class="help-title"
+          bindinput ="helpTitleInput"
+          placeholder="请输入您的求助标题"
+          placeholder-class="help-placeholder-class-style">
+        </input>
+      </label>
+      <textarea class="help-content"
+        bindinput ="helpContentInput"
+        placeholder="请输入您的求助内容"
+        placeholder-class="help-placeholder-class-style">
+      </textarea>
+      <label>
+        <text>联系方式:</text>
+        <input class="help-contact"
+          bindinput ="helpContactInput"
+          placeholder="请输入您的联系方式"
+          placeholder-class="help-placeholder-class-style">
+        </input>
+      </label>
+      <label>
+        <button class="dialog-btn" style='width:150rpx;' bindtap="closeHelp">取消</button>
+        <button class="dialog-btn" style='width:150rpx;' bindtap="submitHelp">发送</button>
+        <button class="dialog-btn" style='width:150rpx;' bindtap="cleanHelp">清空</button>
+      </label>
+    </view>
+  </view>
+</view>
+
+<view class="feedcontact-dialog {{ showFeedContactDialog ? 'feedcontact-dialog--show' : '' }}">
+  <view class="feedcontact-dialog__mask" bindtap="" />
+  <view class="feedcontact-dialog__container">
+    <view class="feedcontact-text" style='padding:65rpx;'>
+      <label>
+        <text class="title">提示</text>
+        <text>受欧盟隐私法案GDPR影响，</text>
+        <text>个人信息登记服务暂时无法上线，</text>
+        <text>这意味着我们无法直接联系您，</text>
+        <text>因此留言求助服务无法正常使用。</text>
+        <text>请使用微信自带的问题反馈功能，</text>
+        <text>并务必留下您的联系方式</text>
+      </label>
+      <button class="dialog-btn" style='width:250rpx;' open-type="feedback" bindtap="closeFeedContact">确认</button>
+    </view>
+  </view>
+</view>

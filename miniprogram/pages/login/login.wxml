@@ -1,0 +1,425 @@
+<!--pages/login/login.wxml-->
+
+<!--主界面设计-->
+<view class="login-content">
+  <!-------------- 背景图片 --------------->
+  <image class="login-background" src="../../images/login-background.jpg" mode="aspectFill"></image>
+
+  <!-------------- 主界面信息展示区 --------------->
+  <view class="login-header">
+    <view class='UserHeader'>
+      <!--用户头像图片-->
+      <open-data class='UserInfo' type="userAvatarUrl"  bindgetuserinfo="onGotUserInfo"></open-data>
+    </view>
+    <text>亲爱的</text>
+    <!--用户昵称-->
+    <open-data class="UserName" type="userNickName"></open-data>
+    <label class="UserNumType">
+      <text>有</text>
+      <!--总用户数显示-->
+      <text class="UserNum">{{totalUserNum}}</text>
+      <text>人与您在一起</text>
+    </label>
+  </view>
+  
+  <!-------------- 主界面控制区 --------------->
+  <view class="login-control">
+    <view class="temp-input">
+      <!--体温核验按钮-->
+      <button class="submit" bindtap="tempBtnClick" disabled='{{isDisabled | !isChinese | (isTeenager & !isLicensed)}}' hover-class="submit_hover">核验</button>
+      <!--体温输入框-->
+      <input
+        value="{{temp_value}}"
+        placeholder="请输入您的当前体温"
+        placeholder-class="placeholder-class-style"
+        bindinput ="tempValueInput"
+        bindconfirm="tempBtnClick"
+        disabled='{{isDisabled | !isChinese | (isTeenager & !isLicensed)}}'>
+      </input>
+      <image src="../../images/temp-icon.png"></image>
+      <!--体温测量方式设置按钮-->
+      <button class="method" bindtap="setMethod" disabled='{{isDisabled | !isChinese | (isTeenager & !isLicensed)}}' hover-class="method_hover">{{measure_method}}</button>
+      <button class="emergency" bindtap="gotoEmergency" hover-class="emergency_hover">紧急联络</button>
+      <button class="register"bindtap='regBtnClick' hover-class="register_hover" >授权配置</button>
+    </view>
+  </view>
+</view>
+
+
+<!-------------- 体温正常弹窗 --------------->
+<view class="normal-dialog {{ showNormalDialog ? 'normal-dialog--show' : '' }}">
+  <view class="normal-dialog__mask" bindtap="toggleNormalDialog" />
+  <view class="normal-dialog__container">
+    <view class="normal-text" style='padding:65rpx;'>
+      <text>恭喜您，体温一切正常！根据欧盟GDPR相关法律，正常体温为非必要数据，我们不会上传并将清空之前的体温数据。请继续保持健康！</text>
+      <button class="dialog-btn" bindtap="closeNormalDialog">关闭</button>
+    </view>
+  </view>
+</view>
+
+<!-------------- 发热弹窗 --------------->
+<view class="fever-dialog {{ showFeverDialog ? 'fever-dialog--show' : '' }}">
+  <view class="fever-dialog__mask" bindtap="" />
+  <view class="fever-dialog__container">
+    <view class="{{(showFeverTextNo==0) ? 'fever-text' : 'fever-text-hide'}}">
+      <text>
+        {{feverText[showFeverTextNo]}}
+      </text>
+      <label>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="closeFeverDialog">
+          {{feverCancel[showFeverTextNo]}}
+        </button>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="updateFeverDialog">
+          {{feverConfirm[showFeverTextNo]}}
+        </button>
+      </label>
+    </view>
+    <view class="{{(showFeverTextNo==1) ? 'fevercontact-text' : 'fevercontact-text-hide'}}" style='padding:65rpx;'>
+      <text>
+        {{feverText[showFeverTextNo]}}
+      </text>
+      <label>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="closeFeverDialog">
+          {{feverCancel[showFeverTextNo]}}
+        </button>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="updateFeverDialog" open-type="contact">
+          {{feverConfirm[showFeverTextNo]}}
+        </button>
+      </label>
+    </view>
+  </view>
+</view>
+
+<!-------------- 体温输入超界弹窗 --------------->
+<view class="mistake-dialog {{ showMistakeDialog ? 'mistake-dialog--show' : '' }}">
+  <view class="mistake-dialog__mask" bindtap="toggleMistakeDialog" />
+  <view class="mistake-dialog__container">
+    <view class="mistake-text" style='padding:65rpx;'>
+      <text>您输入的体温不在正常范围</text>
+      <text>请重新测量</text>
+      <button class="dialog-btn" style='width:250rpx;' bindtap="closeMistakeDialog">关闭</button>
+    </view>
+  </view>
+</view>
+
+<!-------------- 体温输入错误弹窗 --------------->
+<view class="error-dialog {{ showErrorDialog ? 'error-dialog--show' : '' }}">
+  <view class="error-dialog__mask" bindtap="toggleErrorDialog" />
+  <view class="error-dialog__container">
+    <view class="error-text" style='padding:65rpx;'>
+      <text>您输入的不是体温数值</text>
+      <text>请重新输入</text>
+      <button class="dialog-btn" style='width:250rpx;' bindtap="closeErrorDialog">关闭</button>
+    </view>
+  </view>
+</view>
+
+<!-------------- 注册面板 --------------->
+<view class="reg-dialog {{ showRegDialog ? 'reg-dialog--show' : '' }}">
+  <view class="reg-dialog__mask" bindtap="" />
+  <view class="reg-dialog__container">
+    <view class="reg-text" style='padding:65rpx;'>
+      <!--注册状态显示-->
+      <text>您的注册状态为：</text>
+      <text>{{regText}}</text>
+      <label>
+        <button class="reg-dialog-btn" disabled='{{!isDisabled}}'  open-type="getUserInfo"  bindgetuserinfo="bindGetUserInfo">注册</button>
+        <button class="reg-dialog-btn" disabled='{{isDisabled | !isChinese | (isTeenager & !isLicensed)}}' bindtap="setUserInfo">信息</button>
+        <button class="reg-dialog-btn" disabled='{{isDisabled}}' open-type="openSetting" bindopensetting="bindOpenSetting">注销</button>
+        <button class="reg-dialog-btn" bindtap="closeRegDialog">完成</button>
+      </label>
+    </view>
+  </view>
+</view>
+
+<!-------------- 新用户注册面板 --------------->
+<view class="newuser-dialog {{ showNewUserDialog ? 'newuser-dialog--show' : '' }}">
+  <view class="newuser-dialog__mask" bindtap="" />
+  <view class="newuser-dialog__container">
+
+    <!--国籍和年龄确认页-->
+    <view class="{{(showNewUserTextNo<3)&&(showNewUserTextNo>0) ? 'newuser-security' : 'newuser-security-hide'}}" style='padding:65rpx;'>
+      <text class="title">{{newUserTitle[showNewUserTextNo-1]}}</text>
+      <text class="seurity-content" style="overflow-y:auto;overflow-x:scroll;">
+        {{newUserText[showNewUserTextNo-1]}}
+      </text>
+      <label class="newuser-btn">
+        <button class="dialog-btn" style='width:200rpx;' bindtap="closeNewUserDialog">
+          {{cancelTexts[showNewUserTextNo-1]}}
+        </button>
+        <button class="dialog-btn" style='width:200rpx;' bindtap="nextNewUserDialog">
+          {{confirmTexts[showNewUserTextNo-1]}}
+        </button>
+      </label>
+    </view>
+
+    <!--监护人信息授权页-->
+    <view class="{{(showNewUserTextNo==3) ? 'teenager-text' : 'teenager-text-hide'}}" style='padding:65rpx;'>
+      <text class="title">监护人信息</text>
+      <label>
+        <text>姓名</text>
+        <input class="parents-name"
+          placeholder="请输入监护人姓名"
+          placeholder-class="parents-placeholder-class-style"
+          bindinput ="parentsNameInput">
+        </input>
+      </label>
+      <label>
+        <text>关系</text>
+        <input class="parents-relation"
+          placeholder="监护人与用户的关系"
+          placeholder-class="parents-placeholder-class-style"
+          bindinput ="parentsRelationInput">
+        </input>
+      </label>
+      <label>
+        <text>证件号</text>
+        <input class="parents-id"
+          placeholder="请输入监护人证件号"
+          placeholder-class="parents-placeholder-class-style"
+          bindinput ="parentsIDInput">
+        </input>
+      </label>
+      <label>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="closeNewUserDialog">
+          {{cancelTexts[showNewUserTextNo-1]}}
+        </button>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="nextNewUserDialog">
+          {{confirmTexts[showNewUserTextNo-1]}}
+        </button>
+      </label>
+    </view>
+
+    <!--数据授权协议页-->
+    <view class="{{(showNewUserTextNo>3)&&(showInfoTextNo<2) ? 'info-security' : 'info-security-hide'}}" style='padding:65rpx;'>
+      <text class="title">{{infoTitle[showInfoTextNo]}}</text>
+      <text class="seurity-content" style="overflow-y:auto;overflow-x:scroll;">{{securityText[showInfoTextNo]}}</text>
+      <button class="dialog-btn" style='width:200rpx;' bindtap="nextInfoDialog">下一步</button>
+    </view>
+
+    <!--用户数据上传页-->
+    <view class="{{(showNewUserTextNo>2)&&(showInfoTextNo==2) ? 'info-text' : 'info-text-hide'}}" style='padding:65rpx;'>
+      <text class="title">联系信息</text>
+      <text class="title-user">注册用户</text>
+      <label>
+        <text>姓名</text>
+        <input class="nameInput"
+          placeholder="您的姓名"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userNameInput">
+        </input>
+        <text>身份</text>
+        <input class="studentInput"
+          placeholder="学生/工作/待业"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userStudentInput">
+        </input>
+      </label>
+      <label>
+        <text>签证</text>
+        <input class="visaInput"
+          placeholder="请输入您的签证号"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userVisaInput">
+        </input>
+      </label>
+      <label>
+        <text>联系</text>
+        <input class="contactInput"
+          placeholder="请输入您的联系方式"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userContactInput">
+        </input>
+      </label>
+      <text class="title-emer">紧急联系人</text>
+      <label>
+        <text>姓名</text>
+        <input class="emergency-name"
+          placeholder="联系人姓名"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="emerNameInput">
+        </input>
+        <text>关系</text>
+        <input class="relationInput"
+          placeholder="亲人/朋友"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="emerRelationInput">
+        </input>
+      </label>
+      <label>
+        <text>联系</text>
+        <input class="emergency-contact"
+          placeholder="请输入替代联系方式"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="emerContactInput">
+        </input>
+      </label>
+      <button class="dialog-btn" style='width:200rpx;' bindtap="closeInfoDialog">完成</button>
+    </view>
+  </view>
+</view>
+
+<!-------------- 用户信息修改面板 --------------->
+<view class="info-dialog {{ showInfoDialog ? 'info-dialog--show' : '' }}">
+  <view class="info-dialog__mask" bindtap="" />
+  <view class="info-dialog__container">
+
+    <!--数据授权协议页-->
+    <view class="{{(showInfoTextNo<2) ? 'info-security' : 'info-security-hide'}}" selectable="true" scroll-y="true" style='padding:65rpx;'>
+      <text class="title">{{infoTitle[showInfoTextNo]}}</text>
+      <text class="seurity-content" style="overflow-y:auto;overflow-x:scroll;">{{securityText[showInfoTextNo]}}</text>
+      <button class="dialog-btn" style='width:200rpx;' bindtap="nextInfoDialog">下一步</button>
+    </view>
+
+    <!--用户数据上传页-->
+    <view class="{{(showInfoTextNo==2) ? 'info-text' : 'info-text-hide'}}" style='padding:65rpx;'>
+      <text class="title">联系信息</text>
+      <text class="title-user">注册用户</text>
+      <label>
+        <text>姓名</text>
+        <input class="nameInput"
+          value="{{userName}}" 
+          placeholder="您的姓名"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userNameInput">
+        </input>
+        <text>身份</text>
+        <input class="studentInput"
+          value="{{userStudent}}" 
+          placeholder="学生/工作/待业"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userStudentInput">
+        </input>
+      </label>
+      <label>
+        <text>签证</text>
+        <input class="visaInput"
+          value="{{userVisa}}" 
+          placeholder="请输入您的签证号"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userVisaInput">
+        </input>
+      </label>
+      <label>
+        <text>联系</text>
+        <input class="contactInput"
+          value="{{userContact}}" 
+          placeholder="请输入您的联系方式"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="userContactInput">
+        </input>
+      </label>
+      <text class="title-emer">紧急联系人</text>
+      <label>
+        <text>姓名</text>
+        <input class="emergency-name"
+          value="{{emerName}}" 
+          placeholder="联系人姓名"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="emerNameInput">
+        </input>
+        <text>关系</text>
+        <input class="relationInput"
+          value="{{emerRelation}}" 
+          placeholder="亲人/朋友"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="emerRelationInput">
+        </input>
+      </label>
+      <label>
+        <text>联系</text>
+        <input class="emergency-contact"
+          value="{{emerContact}}" 
+          placeholder="请输入替代联系方式"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="emerContactInput">
+        </input>
+      </label>
+      <button class="dialog-btn" style='width:200rpx;' bindtap="closeInfoDialog">完成</button>
+    </view>
+  </view>
+</view>
+
+<!-------------- 检测到有发热记录面板 --------------->
+<view class="stillfever-dialog {{ showstillFeverDialog ? 'stillfever-dialog--show' : '' }}">
+  <view class="stillfever-dialog__mask" bindtap="togglestillFeverDialog" />
+  <view class="stillfever-dialog__container">
+    <view class="stillfever-text" style='padding:65rpx;'>
+      <text>您之前正在发烧,请问是否好转?</text>
+      <text>是否需要联系志愿者？</text>
+      <label>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="closestillFeverDialog">关闭</button>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="contactstillFeverDialog" open-type="contact">联系</button>
+      </label>
+    </view>
+  </view>
+</view>
+
+<!-------------- 新信息通知面板 --------------->
+<view class="news-dialog {{ showNewsDialog ? 'news-dialog--show' : '' }}">
+  <view class="news-dialog__mask" bindtap="toggleNewsDialog" />
+  <view class="news-dialog__container">
+  
+    <!--新通知显示-->
+    <view class="{{(showNewsTextNo==0) ? 'news-text' : 'news-text-hide'}}" style='padding:65rpx;'>
+      <text class="news-title">新通知</text>
+      <text class="news-content" style="overflow-y:auto;overflow-x:scroll;">{{newsContent}}</text>
+      <text class="news-counter">({{newsCurrentNum}}/{{newsTotalNum}})</text>
+      <label>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="closeNewsDialog">
+          {{(newsCurrentNum==1)&&(showNewsTextNo==0)&&(hasGoods) ? '登记' : '关闭'}}
+        </button>
+        <button class="dialog-btn" style='width:250rpx;' bindtap="nextNewsDialog">下一条</button>
+      </label>
+    </view>
+    
+    <!--抗疫活动登记-->
+    <view class="{{(showNewsTextNo==1) ? 'newgoods-text' : 'newgoods-text-hide'}}" style='padding:65rpx;'>
+      <text class="title">登记信息</text>
+      <label>
+        <text>姓名</text>
+        <input class="applyNameInput"
+          value="{{applyName}}" 
+          placeholder="您的姓名"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="applyNameInput">
+        </input>
+        <text>邮编</text>
+        <input class="postInput"
+          value="{{applyPost}}" 
+          placeholder="邮政编码"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="applyPostInput">
+        </input>
+      </label>
+      <label>
+        <text>城市</text>
+        <picker class="cityInput" bindchange="bindPickerChange" value="{{city_index}}" range="{{city_array}}">
+          <view class="picker">{{city_array[city_index]}}</view>
+        </picker>
+      </label>
+      <label>
+        <text>地址</text>
+        <input class="addrInput"
+          value="{{applyAddr}}" 
+          placeholder="请输入您所在的街道"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="applyAddrInput">
+        </input>
+      </label>
+      <label>
+        <text>联系</text>
+        <input class="contactInput"
+          value="{{applyContact}}" 
+          placeholder="请输入您的联系方式"
+          placeholder-class="info-placeholder-class-style"
+          bindinput ="applyContactInput">
+        </input>
+      </label>
+      <label>
+        <button class="dialog-btn" style='width:200rpx;' bindtap="closeNewsDialog">放弃</button>
+        <button class="dialog-btn" style='width:200rpx;' bindtap="submitNewGoodsDialog">登记</button>
+      </label>
+    </view>
+  </view>
+</view>

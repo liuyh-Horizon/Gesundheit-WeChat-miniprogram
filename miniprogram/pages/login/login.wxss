@@ -1,0 +1,1200 @@
+/* pages/login/login.wxss */
+
+/************** 主界面样式 **************/
+
+.login-content
+{
+  height: 100%;
+  width: 100%;
+}
+
+/************** 背景图片样式 **************/
+
+.login-background
+{
+  height: 100%;
+  width: 100%;
+  position:fixed; 
+  background-size:100% 100%;
+  z-index: -1;
+}
+
+/************** 主界面信息展示区样式 **************/
+
+.login-header
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30rpx;
+
+  color: white;
+  font-size: 40rpx;
+}
+
+/************** 用户信息展示区样式 **************/
+
+.UserHeader
+{
+  border-radius: 100%;
+  overflow: hidden;
+  width: 200rpx;
+  height: 200rpx;
+  position: relative;
+  margin: 40rpx 0rpx;
+}
+ 
+.UserInfo 
+{
+  border-radius: 100%;
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.UserName
+{
+  margin-bottom: 20rpx;
+}
+
+.login-header text:nth-of-type(1)
+{
+  margin-bottom: 20rpx;
+}
+
+/************** 主界面控制区样式 **************/
+
+.login-control
+{
+  padding: 20rpx 75rpx;
+}
+
+/************** 体温输入框样式 **************/
+
+.temp-input
+{
+  background: rgba(255, 255, 255, 0.2);
+  height: 100rpx;
+  border-radius: 50rpx;
+  position: relative;
+  margin-top: 50rpx;
+}
+
+.temp-input input
+{
+  height: 100%;
+  padding-left: 120rpx;
+  color: white;
+  font-size: 35rpx;
+}
+.placeholder-class-style
+{
+  color: #bbb;
+  font-size: 35rpx;
+}
+
+.temp-input image
+{
+  height: 75rpx;
+  width: 75rpx;
+
+  position: absolute;
+  top: 11rpx;
+  left: 25rpx;
+}
+
+/************** 核验按钮样式 **************/
+
+.temp-input .submit
+{
+  background-color: rgba(255, 255, 255, 0.60);
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 75rpx;
+  font-size: 36rpx;
+  padding-left: 0rpx;
+  padding-right: 0rpx;
+  display:flex; justify-content:center; align-items:center;
+  line-height: 40rpx !important;
+  vertical-align:middle !important;
+  /*text-align: center !important;*/
+  height: 100rpx !important;
+  width: 140rpx !important; 
+  border-radius: 50rpx;
+  position: absolute;
+  z-index: 10;
+  top: -74rpx;
+  right: 0rpx;
+}
+
+.temp-input .submit_hover
+{
+  background-color: rgba(255, 255, 255, 0.85);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/************** 测量方式设置按钮样式 **************/
+
+.method
+{
+  background-color: rgba(255, 255, 255, 0.70);
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 50rpx;
+  font-size: 38rpx;
+  display:flex; justify-content:center; align-items:center;
+  line-height: 40rpx !important;
+  vertical-align:middle !important;
+  text-align: center !important;
+  height: 50rpx !important;
+  width: 55% !important; 
+  border-radius: 50rpx;
+  padding-left: 0rpx !important;
+  padding-right: 0rpx !important;
+}
+.method_hover
+{
+  background-color: rgba(255, 255, 255, 0.85);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/************** 紧急联络按钮样式 **************/
+
+.emergency
+{
+  background-color: rgba(255, 255, 255, 0.70);
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 50rpx;
+  font-size: 38rpx;
+  display:flex; justify-content:center; align-items:center;
+  line-height: 40rpx !important;
+  vertical-align:middle !important;
+  text-align: center !important;
+  height: 50rpx !important;
+  width: 55% !important; 
+  border-radius: 50rpx;
+}
+.emergency_hover
+{
+  background-color: rgba(255, 255, 255, 0.85);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/************** 授权配置按钮样式 **************/
+
+.register
+{
+  background-color: rgba(255, 255, 255, 0);
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 50rpx;
+  margin-bottom: 50rpx;
+  font-size: 38rpx;
+  display:flex; justify-content:center; align-items:center;
+  line-height: 40rpx !important;
+  vertical-align:middle !important;
+  text-align: center !important;
+  height: 50rpx !important;
+  width: 55% !important; 
+}
+.register_hover
+{
+  background-color: rgba(255, 255, 255, 0.70);
+  color: rgba(0, 0, 0, 0.6);
+  border-radius: 50rpx;
+}
+
+button[disabled] 
+{
+    color: rgba(0, 0, 0, 0.4) !important;
+    background: rgba(255, 255, 255, 0.40) !important;
+}
+
+
+/************** 体温正常弹窗样式 **************/
+
+.normal-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.normal-dialog__container {
+  position: fixed;
+  top: 400rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 400rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.normal-dialog--show .normal-dialog__container {
+  transform: translateY(0);
+}
+
+.normal-dialog--show .normal-dialog__mask {
+  display: block;
+}
+
+.normal-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.normal-text text:nth-of-type(1)
+{
+  margin-bottom: 20rpx;
+}
+
+.normal-text text:nth-of-type(2)
+{
+  margin-bottom: 40rpx;
+}
+
+/************** 发热弹窗样式 **************/
+
+.fever-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.fever-dialog__container {
+  position: fixed;
+  top: 250rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 540rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.fever-dialog--show .fever-dialog__container {
+  transform: translateY(0);
+}
+
+.fever-dialog--show .fever-dialog__mask {
+  display: block;
+}
+
+.fever-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.fever-text-hide
+{
+  display: none;
+}
+
+.fever-text label
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fever-text text:nth-of-type(1)
+{
+  padding-top: 20rpx!important;
+  padding-left: 60rpx!important;
+  padding-right: 60rpx!important;
+  font-size: 35rpx;
+  margin-bottom: 20rpx;
+}
+
+.fever-text button:nth-of-type(1)
+{
+  margin-right: 5rpx;
+}
+
+/************** 检测到发热记录询问弹窗样式 **************/
+
+.fevercontact-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.fevercontact-dialog__container {
+  position: fixed;
+  top: 400rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 340rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.fevercontact-dialog--show .fevercontact-dialog__container {
+  transform: translateY(0);
+}
+
+.fevercontact-dialog--show .fevercontact-dialog__mask {
+  display: block;
+}
+
+.fevercontact-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.fevercontact-text-hide
+{
+  display: none;
+}
+
+.fevercontact-text label
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fevercontact-text text:nth-of-type(1)
+{
+  margin-bottom: 20rpx;
+}
+
+.fevercontact-text text:nth-of-type(2)
+{
+  margin-bottom: 40rpx;
+}
+
+.fevercontact-text button:nth-of-type(1)
+{
+  margin-right: 5rpx;
+}
+
+/************** 体温输入超界弹窗样式 **************/
+
+.mistake-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.mistake-dialog__container {
+  position: fixed;
+  top: 400rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 350rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.mistake-dialog--show .mistake-dialog__container {
+  transform: translateY(0);
+}
+
+.mistake-dialog--show .mistake-dialog__mask {
+  display: block;
+}
+
+.mistake-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.mistake-text text:nth-of-type(1)
+{
+  margin-bottom: 20rpx;
+}
+
+.mistake-text text:nth-of-type(2)
+{
+  margin-bottom: 40rpx;
+}
+
+/************** 体温输入错误弹窗样式 **************/
+
+.error-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.error-dialog__container {
+  position: fixed;
+  top: 400rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 350rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.error-dialog--show .error-dialog__container {
+  transform: translateY(0);
+}
+
+.error-dialog--show .error-dialog__mask {
+  display: block;
+}
+
+.error-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.error-text text:nth-of-type(1)
+{
+  margin-bottom: 20rpx;
+}
+
+.error-text text:nth-of-type(2)
+{
+  margin-bottom: 40rpx;
+}
+
+/************** 注册面板弹窗样式 **************/
+
+.reg-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.reg-dialog__container {
+  position: fixed;
+  top: 300rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 370rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.reg-dialog--show .reg-dialog__container {
+  transform: translateY(0);
+}
+
+.reg-dialog--show .reg-dialog__mask {
+  display: block;
+}
+
+.reg-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.reg-text label
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.reg-text text:nth-of-type(1)
+{
+  margin-bottom: 20rpx;
+  font-weight: 400;
+}
+
+.reg-text text:nth-of-type(2)
+{
+  margin-bottom: 40rpx;
+}
+
+/************** 用户注册流程弹窗样式 **************/
+
+.info-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.info-dialog__container {
+  position: fixed;
+  top: 50rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 840rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.info-dialog--show .info-dialog__container {
+  transform: translateY(0);
+}
+
+.info-dialog--show .info-dialog__mask {
+  display: block;
+}
+
+/************** 用户数据授权弹窗样式 **************/
+
+.info-security
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.info-security-hide
+{
+  display: none;
+}
+
+.info-security .title
+{
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 40rpx;
+}
+
+.info-security .seurity-content
+{
+  height: 500rpx !important;
+  margin-bottom: 40rpx;
+  display: block;
+  text-align: center;
+  max-height: 500rpx;
+}
+
+.info-text label
+{
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.info-text label:nth-of-type(3)
+{
+  margin-bottom: 40rpx !important;
+}
+
+.info-text label:nth-of-type(5)
+{
+  margin-bottom: 40rpx !important;
+}
+
+.info-text label:nth-of-type(1) text
+{
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(1) input
+{
+  height: 50rpx !important;
+  width: 150rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(2) text
+{
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(2) input
+{
+  height: 50rpx !important;
+  width: 380rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(3) text
+{
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(3) input
+{
+  height: 50rpx !important;
+  width: 380rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(4) text
+{
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(4) input
+{
+  height: 50rpx !important;
+  width: 150rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(5) text
+{
+  margin-left: 10rpx;
+}
+
+.info-text label:nth-of-type(5) input
+{
+  height: 50rpx !important;
+  width: 380rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.info-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.info-text-hide
+{
+  display: none;
+}
+
+.info-text .title
+{
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 40rpx;
+}
+
+.info-text .title-user
+{
+  margin-bottom: 20rpx;
+}
+
+.info-text .title-emer
+{
+  margin-bottom: 20rpx;
+}
+
+.info-placeholder-class-style
+{
+  color: #bbb;
+  font-size: 28rpx;
+  padding-left: 5rpx;
+}
+
+/************** 新用户注册流程弹窗样式 **************/
+
+.newuser-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.newuser-dialog__container {
+  position: fixed;
+  top: 50rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 840rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.newuser-dialog--show .newuser-dialog__container {
+  transform: translateY(0);
+}
+
+.newuser-dialog--show .newuser-dialog__mask {
+  display: block;
+}
+
+.newuser-security
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.newuser-security-hide
+{
+  display: none;
+}
+
+.newuser-security .title
+{
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 40rpx;
+}
+
+.newuser-security .seurity-content
+{
+  height: 500rpx !important;
+  margin-bottom: 40rpx;
+  display: block;
+  text-align: center;
+  max-height: 500rpx;
+}
+
+.newuser-security .newuser-btn
+{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+/************** 监护人授权弹窗样式 **************/
+
+.teenager-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.teenager-text-hide
+{
+  display: none;
+}
+
+.teenager-text .title
+{
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 100rpx;
+}
+
+.teenager-text label:nth-of-type(1)
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+
+.teenager-text label:nth-of-type(1) input
+{
+  height: 50rpx !important;
+  width: 400rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.teenager-text label:nth-of-type(2)
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+
+.teenager-text label:nth-of-type(2) input
+{
+  height: 50rpx !important;
+  width: 400rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.teenager-text label:nth-of-type(3)
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 100rpx;
+}
+
+.teenager-text label:nth-of-type(3) input
+{
+  height: 50rpx !important;
+  width: 370rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.teenager-text label:nth-of-type(4)
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+
+.parents-placeholder-class-style
+{
+  color: #bbb;
+  font-size: 28rpx;
+  padding-left: 5rpx;
+}
+
+.teenager-text button
+{
+  margin-top: 35rpx;
+}
+
+.newuser-security .newuser-btn
+{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+/************** 检测发热记录弹窗样式 **************/
+
+.stillfever-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.stillfever-dialog__container {
+  position: fixed;
+  top: 400rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 350rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.stillfever-dialog--show .stillfever-dialog__container {
+  transform: translateY(0);
+}
+
+.stillfever-dialog--show .stillfever-dialog__mask {
+  display: block;
+}
+
+.stillfever-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.stillfever-text label
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stillfever-text text:nth-of-type(1)
+{
+  margin-bottom: 20rpx;
+}
+
+.stillfever-text text:nth-of-type(2)
+{
+  margin-bottom: 40rpx;
+}
+
+.stillfever-text button:nth-of-type(1)
+{
+  margin-right: 5rpx;
+}
+
+.dialog-btn
+{
+  font-size: 38rpx;
+  font-weight: 600rpx;
+  display:flex; justify-content:center; align-items:center;
+  line-height: 40rpx !important;
+  vertical-align:middle !important;
+  text-align: center !important;
+  height: 80rpx !important;
+  width: 250rpx !important; 
+}
+
+.reg-dialog-btn
+{
+  font-size: 35rpx;
+  font-weight: 600rpx !important;
+  display:flex; justify-content:center; align-items:center;
+  line-height: 40rpx !important;
+  vertical-align:middle !important;
+  text-align: center !important;
+  height: 80rpx !important;
+  width: 150rpx !important; 
+  padding: 0rpx 0rpx;
+}
+
+/************** 新消息通知弹窗样式 **************/
+
+.news-dialog__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);/*设置阴影半透明背景如： background: rgba(0, 0, 0, 0.4);*/
+  display: none;
+}
+
+.news-dialog__container {
+  position: fixed;
+  top: 120rpx;
+  width: 650rpx;/*弹窗布局宽*/
+  height: 800rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  margin-left: 50rpx;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(500%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
+  transition: all 0.4s ease;
+  z-index: 12;
+  border-radius: 50rpx;
+  box-shadow: 0px 3px 3px 2px rgba(50, 50, 50, 0.3);/*弹框的悬浮阴影效果，如不需要可注释该行*/
+}
+
+.news-dialog--show .news-dialog__container {
+  transform: translateY(0);
+}
+
+.news-dialog--show .news-dialog__mask {
+  display: block;
+}
+
+.news-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.news-text-hide
+{
+  display: none;
+}
+
+.news-text .news-title
+{
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 35rpx;
+}
+
+.news-text .news-content
+{
+  height: 400rpx;
+  margin-bottom: 35rpx;
+  text-align: center;
+}
+
+.news-text .news-counter
+{
+  margin-bottom: 35rpx;
+}
+
+.news-text label
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/************** 抗疫活动登记弹窗样式 **************/
+
+.newgoods-text
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.newgoods-text-hide
+{
+  display: none;
+}
+
+.newgoods-text .title
+{
+  font-size: 40rpx;
+  font-weight: 600;
+  margin-bottom: 100rpx;
+}
+
+.newgoods-text label:nth-of-type(1)
+{
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.newgoods-text label:nth-of-type(2)
+{
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.newgoods-text label:nth-of-type(3)
+{
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.newgoods-text label:nth-of-type(4)
+{
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  margin-bottom: 100rpx;
+}
+
+.newgoods-text label:nth-of-type(5)
+{
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.newgoods-text label:nth-of-type(1) text
+{
+  margin-left: 10rpx;
+}
+
+.newgoods-text label:nth-of-type(1) input
+{
+  height: 50rpx !important;
+  width: 155rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.newgoods-text label:nth-of-type(2) text
+{
+  margin-left: 10rpx;
+}
+
+.newgoods-text label:nth-of-type(2) .picker
+{
+  height: 50rpx !important;
+  width: 400rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.newgoods-text label:nth-of-type(3) text
+{
+  margin-left: 10rpx;
+}
+
+.newgoods-text label:nth-of-type(3) input
+{
+  height: 50rpx !important;
+  width: 400rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
+
+.newgoods-text label:nth-of-type(4) text
+{
+  margin-left: 10rpx;
+}
+
+.newgoods-text label:nth-of-type(4) input
+{
+  height: 50rpx !important;
+  width: 400rpx !important;
+  background-color: rgb(240, 240, 240);
+  margin-left: 10rpx;
+}
