@@ -54,7 +54,7 @@
 
 * **"newsNo"**: 新消息版本号， 包括如下字段：<br><br>
   *_id*: "newsNo", //条目ID <br>
-  *no*: "no", //新消息版本号<br><br>
+  *no*: 0, //数值，新消息版本号<br><br>
 
 * **"isUsable"**: 数据上传功能开关， 包括如下字段：<br><br>
   *_id*: "isUsable", //条目ID <br>
